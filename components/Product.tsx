@@ -2,7 +2,6 @@ import { IProduct } from "../pages/interface/products";
 import Image from 'next/image';
 import { useState } from "react";
 import { StarIcon } from '@heroicons/react/solid';
-import CurrencyFormat from 'react-currency-format';
 
 const MAX_RATING = 5;
 const MIN_RATING = 1;
