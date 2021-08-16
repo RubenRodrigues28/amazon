@@ -1,4 +1,4 @@
-import { IProduct } from "../pages/interface/products"
+import IProduct from "../interface/products"
 import Product from './Product';
 
 type ProductFeedProps = {

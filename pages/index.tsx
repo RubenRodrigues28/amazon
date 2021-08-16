@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Header from '../components/Header';
 import Banner from '../components/Banner';
 import ProductFeed from '../components/ProductFeed';
-import { IProduct } from './interface/products';
+import { IProduct } from '../interface/products';
 
 const Home: NextPage<{products: IProduct[]}> = (props) => {
 
