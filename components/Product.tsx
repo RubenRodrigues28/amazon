@@ -1,4 +1,4 @@
-import IProduct from "../interface/products";
+import IProduct from "../interface/product";
 import Image from 'next/image';
 import { useState } from "react";
 import { StarIcon } from '@heroicons/react/solid';
