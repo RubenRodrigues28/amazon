@@ -1,16 +1,38 @@
 import IProduct from "../interface/product";
 import Image from 'next/image';
 import { useState } from "react";
-import { StarIcon } from '@heroicons/react/solid';
+import { useAppDispatch } from "../app/hooks";
+import { addToBasket } from "../app/slices/basketSlice";
+import ProductRating from "./ProductRating";
+import Currency from "../utilities/utils";
+import { iteratorSymbol } from "immer/dist/internal";
 
 const MAX_RATING = 5;
 const MIN_RATING = 1;
 
-function Product({id, title, category, description, image, price}: IProduct) {
+function Product({id, title, category, description, image, price, quantity}: IProduct) {
     const [rating] = useState(
         Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
     );
     const [hasPrime] = useState(Math.random() < 0.5);
+
+    const dispatch = useAppDispatch();
+
+    const addItemToBasket = () => {
+        const product:IProduct = {
+            id, 
+            title, 
+            category, 
+            description, 
+            image, 
+            price,
+            rating,
+            hasPrime,
+            quantity
+        };
+
+        dispatch(addToBasket(product));
+    }
 
     return (
         <div className="relative flex flex-col m-5 bg-white z-30 p-10">
@@ -23,17 +45,13 @@ function Product({id, title, category, description, image, price}: IProduct) {
             <h4 className="my-3">{title}</h4>
 
             <div className="flex">
-                {Array(rating)
-                .fill(null)
-                .map((_, i) => (
-                    <StarIcon className="h-5 text-yellow-500"/>
-                ))}
+                <ProductRating rating={rating} />
             </div>
 
             <p className="text-xs my-2 line-clamp-2">{description}</p>
 
             <div className="mb-5">
-                {new Intl.NumberFormat('en-EN', { style: 'currency', currency: 'GBP' }).format(price)}
+                <Currency amount={price}/>
             </div>
 
             {hasPrime && (
@@ -43,7 +61,7 @@ function Product({id, title, category, description, image, price}: IProduct) {
                 </div>
             )}
 
-            <button className="mt-auto button">Add to Basket</button>
+            <button onClick={addItemToBasket} className="mt-auto button">Add to Basket</button>
 
         </div>
     )

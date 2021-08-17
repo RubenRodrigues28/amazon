@@ -5,4 +5,7 @@ export default interface IProduct {
     description:string;
     category:string;
     image:string;
+    rating?:number;
+    hasPrime?:boolean;
+    quantity:number;
 }

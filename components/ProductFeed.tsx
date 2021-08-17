@@ -1,4 +1,4 @@
-import IProduct from "../interface/product"
+import IProduct from "../interface/product";
 import Product from './Product';
 
 type ProductFeedProps = {
@@ -11,7 +11,7 @@ function ProductFeed(props : ProductFeedProps) {
         <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:-mt-52">
             { props.products
             .slice(0, 4)
-            .map( ({id, title, category, description, image, price}: IProduct) => {
+            .map( ({id, title, category, description, image, price, quantity=1}: IProduct) => {
                 return(
                     <Product 
                         key={id}
@@ -21,6 +21,7 @@ function ProductFeed(props : ProductFeedProps) {
                         description={description}
                         image={image}
                         price={price}
+                        quantity={quantity}
                     />
                 );
             })}
@@ -30,7 +31,7 @@ function ProductFeed(props : ProductFeedProps) {
             <div className="md:col-span-2">
                 { props.products
                 .slice(4, 5)
-                .map( ({id, title, category, description, image, price}: IProduct) => {
+                .map( ({id, title, category, description, image, price, quantity=1}: IProduct) => {
                     return(
                         <Product 
                             key={id}
@@ -40,6 +41,7 @@ function ProductFeed(props : ProductFeedProps) {
                             description={description}
                             image={image}
                             price={price}
+                            quantity={quantity}
                         />
                     );
                 })}
@@ -47,7 +49,7 @@ function ProductFeed(props : ProductFeedProps) {
 
             { props.products
                 .slice(5, props.products.length)
-                .map( ({id, title, category, description, image, price}: IProduct) => {
+                .map( ({id, title, category, description, image, price, quantity=1}: IProduct) => {
                     return(
                         <Product 
                             key={id}
@@ -57,6 +59,7 @@ function ProductFeed(props : ProductFeedProps) {
                             description={description}
                             image={image}
                             price={price}
+                            quantity={quantity}
                         />
                     );
             })}
