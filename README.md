@@ -14,3 +14,6 @@ This is a Amazon clone project
 9.  Firebase (authentication and storage)
 10. Stripe (payment handling)
 11. Webhooks
+
+# Link
+[amazon-lac.vercel.app]
