@@ -12,7 +12,7 @@ import Header from "../components/Header";
 import IProduct from "../interface/product";
 import Currency from "../utilities/utils";
 
-const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
+const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY!);
 
 const Checkout: NextPage<{session: Session}> = (props) => {
     const items:IProduct[] = useAppSelector(selectItems);
