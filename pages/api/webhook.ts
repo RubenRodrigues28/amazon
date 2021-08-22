@@ -13,7 +13,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // stripe CLI endpoint
 const endpointSecret = process.env.STRIPE_SIGNING_KEY;
 
-const fulfillOrder = async (session) => {
+const fulfillOrder = async (session: { metadata: { email: string; images: string; }; id: string; amount_total: number; total_details: { amount_shipping: number; }; }) => {
     return app
     .firestore()
     .collection("users")
