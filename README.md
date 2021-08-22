@@ -1,6 +1,6 @@
 
-# Amazon Clone
-This is a Amazon clone project
+# Description
+This project is a Amazon clone. 
 
 # Some technologies used
 1. React.js
