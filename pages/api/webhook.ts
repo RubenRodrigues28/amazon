@@ -14,6 +14,9 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const endpointSecret = process.env.STRIPE_SIGNING_KEY;
 
 const fulfillOrder = async (session: { metadata: { email: string; images: string; }; id: string; amount_total: number; total_details: { amount_shipping: number; }; }) => {
+    console.log('app');
+    console.log(app);
+    
     return app
     .firestore()
     .collection("users")
@@ -26,7 +29,7 @@ const fulfillOrder = async (session: { metadata: { email: string; images: string
     })
     .then(() => {
         console.log(`SUCCESS: Order ${session.id} had been added to DB.`)
-    })
+    });
 }
 
 export default async (req: Request, res: Response, next: NextFunction ) => {
@@ -41,13 +44,15 @@ export default async (req: Request, res: Response, next: NextFunction ) => {
         // verify that the event posted came from stripe
         try{
             event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
-        } catch (error) {
+        } catch (error:any) {
             return res.status(400).send(`Webhook error: ${error.message}`)
         }
 
         // handle the checkout.session.completed event
         if(event.type === 'checkout.session.completed') {
             const session = event.data.object;
+            console.log(session);
+            console.log('here');
 
             // fulfill the order
             return fulfillOrder(session)
