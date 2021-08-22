@@ -16,4 +16,4 @@ This is a Amazon clone project
 11. Webhooks
 
 # Link
-[amazon-lac.vercel.app]
+<https://amazon-lac.vercel.app>
