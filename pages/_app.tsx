@@ -16,4 +16,5 @@ function MyApp({ Component, pageProps }: AppProps) {
         </ReduxProvider>
     );
 }
+
 export default MyApp
