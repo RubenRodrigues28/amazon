@@ -1,11 +1,10 @@
-import IProduct from "../interface/product";
 import Image from 'next/image';
 import { useState } from "react";
 import { useAppDispatch } from "../app/hooks";
 import { addToBasket } from "../app/slices/basketSlice";
-import ProductRating from "./ProductRating";
+import IProduct from "../interface/product";
 import Currency from "../utilities/utils";
-import { iteratorSymbol } from "immer/dist/internal";
+import ProductRating from "./ProductRating";
 
 const MAX_RATING = 5;
 const MIN_RATING = 1;

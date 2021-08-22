@@ -1,9 +1,9 @@
-import type { AppProps } from 'next/app'
-import '../styles/globals.css';
 import { Provider as AuthProvider } from 'next-auth/client';
+import type { AppProps } from 'next/app';
 import { Provider as ReduxProvider } from 'react-redux';
-import { persistor, store } from '../app/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from '../app/store';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (

@@ -14,6 +14,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["types/next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/api/create-checkout-session.tjs"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/api/create-checkout-session.ts", "pages/apages/api/webhook.ts"],
   "exclude": ["node_modules"]
 }

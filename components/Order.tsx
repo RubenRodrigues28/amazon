@@ -1,6 +1,6 @@
 import moment from "moment";
 import IOrder from "../interface/order";
-import Currency from '../utilities/utils'
+import Currency from '../utilities/utils';
 
 function Order({ id, amount, amountShipping, images, timestamp, items }: IOrder) {
     return (
@@ -13,11 +13,11 @@ function Order({ id, amount, amountShipping, images, timestamp, items }: IOrder)
 
                 <div>
                     <p className="text-xs font-bold">TOTAL</p>
-                    <p className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2">
                         <Currency amount={amount}/>
                         &nbsp; -&nbsp;&nbsp;NEXT Day Delivery
                         <Currency amount={amountShipping}/>
-                    </p>
+                    </div>
                 </div>
 
                 <p className="text-sm whitespace-nowrap sm:text-xl self-end flex-1 text-right text-blue-500">
@@ -32,7 +32,7 @@ function Order({ id, amount, amountShipping, images, timestamp, items }: IOrder)
             <div className="p-5 sm:p-10 ">
                 <div className="flex space-x-6 overflow-x-auto">
                     {images.map((image: string) => (
-                        <img src={image} alt="" className="h-20 object-contain sm:h-32"/>
+                        <img src={image} key={image} alt="" className="h-20 object-contain sm:h-32"/>
                     ))}
                 </div>
             </div>

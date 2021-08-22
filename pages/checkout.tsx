@@ -1,18 +1,20 @@
-import Header from "../components/Header";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+import { GetServerSideProps, NextPage } from "next";
+import { Session } from "next-auth";
+import { getSession, useSession } from "next-auth/client";
 import Image from 'next/image';
+import React from "react";
 import { useAppSelector } from "../app/hooks";
 import { selectItems, selectTotal } from "../app/slices/basketSlice";
 import CheckoutProduct from '../components/CheckoutProduct';
-import { useSession } from "next-auth/client";
+import Header from "../components/Header";
 import IProduct from "../interface/product";
-import { loadStripe } from "@stripe/stripe-js";
-import axios from "axios";
-import React from "react";
 import Currency from "../utilities/utils";
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
 
-function Checkout() {
+const Checkout: NextPage<{session: Session}> = (props) => {
     const items:IProduct[] = useAppSelector(selectItems);
     const total:number = useAppSelector(selectTotal);
     const [session] = useSession();
@@ -95,6 +97,16 @@ function Checkout() {
             </main>
         </div>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const session = await getSession(context);
+
+    return  { 
+        props : {
+            session
+        },
+    }
 }
 
 export default Checkout;

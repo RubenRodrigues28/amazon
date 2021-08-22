@@ -1,12 +1,8 @@
-import React from 'react';
-import Image from 'next/image';
-import {
-    MenuIcon,
-    SearchIcon,
-    ShoppingCartIcon
-} from '@heroicons/react/outline';
+import { MenuIcon, SearchIcon, ShoppingCartIcon } from '@heroicons/react/outline';
 import { signIn, signOut, useSession } from 'next-auth/client';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
+import React from 'react';
 import { useAppSelector } from '../app/hooks';
 import { selectItems } from '../app/slices/basketSlice';
 
@@ -48,7 +44,7 @@ const Header = () => {
                         <p className="font-extrabold md:text-sm">Account & Lists</p>
                     </div>
 
-                    <div className="link">
+                    <div onClick={() => router.push("/orders")} className="link">
                         <p>Returns</p>
                         <p className="font-extrabold md:text-sm">& Orders</p>
                     </div>

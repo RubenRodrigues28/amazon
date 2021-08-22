@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import IBasket, { initialState } from '../../interface/basket';
+import { initialState } from '../../interface/basket';
 import IProduct from '../../interface/product';
-import { useAppDispatch } from '../hooks';
 import { RootState } from '../store';
 
 export const basketSlice = createSlice({  
@@ -53,11 +52,14 @@ export const basketSlice = createSlice({
             } else {
                 console.warn( `Cant increase product (id: ${action.payload.id}) as its not in basket!` )
             }
+        },
+        clearBasket: (state) => {
+            state.items = [];
         }
     },
 })
 
-export const { addToBasket, removeFromBasket, increaseProductAmount, decreaseProductAmount } = basketSlice.actions;
+export const { addToBasket, removeFromBasket, increaseProductAmount, decreaseProductAmount, clearBasket } = basketSlice.actions;
 
 export const selectItems = (state: RootState) => state.basket.items;
 export const selectTotal = (state: RootState) => state.basket.items.reduce((total, item) => total + item.price * item.quantity, 0);

@@ -1,9 +1,8 @@
 import moment from "moment";
 import { GetServerSideProps, NextPage } from "next";
-import { Session } from "next-auth";
-import { getSession, GetSessionOptions, useSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 import React from "react";
-import Header from "../components/Header"
+import Header from "../components/Header";
 import Order from "../components/Order";
 import db from '../firebase';
 import IOrder from "../interface/order";
@@ -14,8 +13,6 @@ type OrdersType = {
 
 const Orders: NextPage<OrdersType> = ({ orders }) => {
     const [session] = useSession();
-
-    console.log(orders);
 
     return (
         <div>
@@ -61,7 +58,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     .orderBy("timestamp", "desc")
     .get();
 
-
     // stripe orders
     const orders = await Promise.all(
         stripeOrders.docs.map(async (order) => ({
@@ -81,8 +77,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props : {
             orders,
-        }
-    }
+            session
+        },
+    };
 }
 
 export default Orders;

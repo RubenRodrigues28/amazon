@@ -1,8 +1,7 @@
-import { combineReducers, configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { persistReducer, persistStore } from 'redux-persist';
 import basketReducer from './slices/basketSlice';
-import { FLUSH, PAUSE, PERSIST, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import storage from './storage';
 
 const rootReducer = combineReducers({basket : basketReducer});
 

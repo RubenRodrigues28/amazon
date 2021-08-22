@@ -1,9 +1,9 @@
-import IProduct from "../interface/product";
 import Image from 'next/image';
-import ProductRating from './ProductRating';
 import { useAppDispatch } from "../app/hooks";
 import { addToBasket, decreaseProductAmount, increaseProductAmount, removeFromBasket } from "../app/slices/basketSlice";
+import IProduct from "../interface/product";
 import Currency from "../utilities/utils";
+import ProductRating from './ProductRating';
 
 function CheckoutProduct({id, category, description, hasPrime, image, price, rating, title, quantity}:IProduct) {
     const dispatch = useAppDispatch();

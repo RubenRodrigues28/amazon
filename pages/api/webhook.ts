@@ -1,24 +1,22 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { buffer } from 'micro';
+import { NextFunction, Request, Response } from "express";
 import * as admin from "firebase-admin";
+import { buffer } from 'micro';
 
 // secure a connection to FIREBASE from the backend
 const serviceAccount = require("../../permissions.json");
-const app = !admin.apps.length ? admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-}) : admin.app();
+const app = !admin.apps.length 
+    ? admin.initializeApp({ credential: admin.credential.cert(serviceAccount) }) 
+    : admin.app();
 
 // establish connection to STRIPE
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-
 // stripe CLI endpoint
 const endpointSecret = process.env.STRIPE_SIGNING_KEY;
 
 const fulfillOrder = async (session) => {
-    //console.log('fulfilling order', session);
     return app
     .firestore()
-    .collection('users')
+    .collection("users")
     .doc(session.metadata.email)
     .collection("orders").doc(session.id).set({
         amount: session.amount_total / 100,
@@ -31,7 +29,7 @@ const fulfillOrder = async (session) => {
     })
 }
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req: Request, res: Response, next: NextFunction ) => {
 
     if(req.method === "POST") {
         const requestBuffer = await buffer(req);
@@ -43,8 +41,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         // verify that the event posted came from stripe
         try{
             event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
-        } catch (err) {
-            return res.status(400).send(`Webhook error: ${err.message}`)
+        } catch (error) {
+            return res.status(400).send(`Webhook error: ${error.message}`)
         }
 
         // handle the checkout.session.completed event
@@ -54,7 +52,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             // fulfill the order
             return fulfillOrder(session)
             .then(() => res.status(200))
-            .catch((err) => res.status(400).send(`Webhook Error: ${err.message}`))
+            .catch((error) => res.status(400).send(`Webhook Error: ${error.message}`))
         }
     }
 };

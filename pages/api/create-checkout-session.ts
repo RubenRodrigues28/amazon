@@ -1,14 +1,13 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-import { Request, Response, NextFunction } from 'express';
-//import type { NextApiRequest, NextApiResponse } from "next";
-import IProduct from '../../interface/product'
+import { Request, Response } from "express";
+import IProduct from '../../interface/product';
 
 type HandleCheckoutRequestType = {
     items: IProduct[];
     email: string;
 }
 
-export default async (req: Request, res: Response, next: NextFunction) => {
+export default async (req: Request, res: Response) => {
     const { items, email }: HandleCheckoutRequestType = req.body;
 
     const transformedItems = items.map(item => ({
@@ -40,5 +39,5 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         }
     });
 
-    res.status(200).json({ id:session.id });
+    res.status(200).json({ id: session.id });
 }

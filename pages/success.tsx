@@ -1,10 +1,21 @@
-import Header from "../components/Header";
 import { CheckCircleIcon } from "@heroicons/react/solid";
+import { GetServerSideProps, NextPage } from "next";
+import { Session } from "next-auth";
+import { getSession } from "next-auth/client";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useAppDispatch } from "../app/hooks";
+import { clearBasket } from "../app/slices/basketSlice";
+import Header from "../components/Header";
 
-function Success() {
+const Success: NextPage<{session: Session}> = (props) => {
 
     const router = useRouter();
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(clearBasket());
+    }, [])
 
     return (
         <div className="bg-gray-100 h-screen">
@@ -26,6 +37,16 @@ function Success() {
             </main>
         </div>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const session = await getSession(context);
+
+    return  { 
+        props : {
+            session
+        },
+    };
 }
 
 export default Success;
