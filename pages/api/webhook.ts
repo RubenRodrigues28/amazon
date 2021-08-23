@@ -11,7 +11,7 @@ const app = !admin.apps.length
 // establish connection to STRIPE
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // stripe CLI endpoint
-const endpointSecret = process.env.STRIPE_SIGNING_KEY;
+const endpointSecret = process.env.STRIPE_SIGNING_SECRET;
 
 const fulfillOrder = async (session: { metadata: { email: string; images: string; quantities: string; }; id: string; amount_total: number; total_details: { amount_shipping: number; }; }) => {
     
