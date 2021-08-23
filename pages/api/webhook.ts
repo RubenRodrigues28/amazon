@@ -13,9 +13,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // stripe CLI endpoint
 const endpointSecret = process.env.STRIPE_SIGNING_KEY;
 
-const fulfillOrder = async (session: { metadata: { email: string; images: string; }; id: string; amount_total: number; total_details: { amount_shipping: number; }; }) => {
-    console.log('app');
-    console.log(app);
+const fulfillOrder = async (session: { metadata: { email: string; images: string; quantities: string; }; id: string; amount_total: number; total_details: { amount_shipping: number; }; }) => {
     
     return app
     .firestore()
@@ -23,6 +21,7 @@ const fulfillOrder = async (session: { metadata: { email: string; images: string
     .doc(session.metadata.email)
     .collection("orders").doc(session.id).set({
         amount: session.amount_total / 100,
+        quantity: JSON.parse(session.metadata.quantities),
         amount_shipping: session.total_details.amount_shipping / 100,
         images: JSON.parse(session.metadata.images),
         timestamp: admin.firestore.FieldValue.serverTimestamp()
@@ -51,8 +50,6 @@ export default async (req: Request, res: Response, next: NextFunction ) => {
         // handle the checkout.session.completed event
         if(event.type === 'checkout.session.completed') {
             const session = event.data.object;
-            console.log(session);
-            console.log('here');
 
             // fulfill the order
             return fulfillOrder(session)

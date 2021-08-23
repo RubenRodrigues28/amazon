@@ -29,8 +29,8 @@ const Orders: NextPage<OrdersType> = ({ orders }) => {
                 )}
 
                 <div className="mt-5 space-y-4">
-                    {orders?.map(({ id, amount, amountShipping, images, timestamp, items }) =>(
-                        <Order key={id} id={id} amount={amount} amountShipping={amountShipping} images={images} timestamp={timestamp} items={items}/>
+                    {orders?.map(({ id, amount, amountShipping, images, timestamp, items, quantity}) =>(
+                        <Order key={id} id={id} amount={amount} quantity={quantity} amountShipping={amountShipping} images={images} timestamp={timestamp} items={items}/>
                     ))}
                 </div>
             </main>
@@ -63,6 +63,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         stripeOrders.docs.map(async (order) => ({
             id: order.id,
             amount: order.data().amount,
+            quantity: order.data().quantity,
             amountShipping: order.data().amount_shipping,
             images: order.data().images,
             timestamp: moment(order.data().timestamp.toDate()).unix(),

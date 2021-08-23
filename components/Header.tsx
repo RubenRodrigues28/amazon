@@ -4,12 +4,14 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useAppSelector } from '../app/hooks';
-import { selectItems } from '../app/slices/basketSlice';
+import { selectItems, selectTotalQuantity } from '../app/slices/basketSlice';
+import IProduct from '../interface/product';
 
 const Header = () => {
     const [session] = useSession();
     const router = useRouter();
-    const items = useAppSelector(selectItems);
+    const items: IProduct[] = useAppSelector(selectItems);
+    const quantity: number = useAppSelector(selectTotalQuantity);
 
     return (
         <header className="sticky top-0 z-50">
@@ -50,7 +52,7 @@ const Header = () => {
                     </div>
                     <div onClick={() => router.push('/checkout')} className="relative link flex items-center">
                         <span className="absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center rounded-full font-bold">
-                            {items.length}
+                            {quantity}
                         </span>
                         <ShoppingCartIcon className="h-10"/>
                         <p className="hidden md:inline font-extrabold md:text-sm mt-2">Basket</p>
