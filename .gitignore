@@ -41,3 +41,7 @@ yarn-error.log*
 .env.*
 
 permissions.json
+permissions64.txt
+firebaseConfig.json
+firebaseConfig64.txt
+
