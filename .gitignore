@@ -39,3 +39,5 @@ yarn-error.log*
 .eslintrc.json
 
 .env.*
+
+permissions.json

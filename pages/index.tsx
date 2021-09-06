@@ -22,7 +22,7 @@ const Home: NextPage<{products: IProduct[], session: Session}> = (props) => {
                 <ProductFeed products={props.products}/>
             </main>
         </div>
-    )
+    )           
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
